@@ -60,6 +60,12 @@ function App() {
 
  */
 function App() {
+  let person = {
+    firstname: "Martin",
+    lastname: "Haagen",
+    retriedAtAge: 35,
+  };
+
   return (
     <div className="container">
       <div className="card" style={{ width: "18rem" }}>
@@ -75,6 +81,10 @@ function App() {
           </a>
         </div>
       </div>
+      <br /> <br /> <hr /> <br />
+      {person.retriedAtAge !== undefined && (
+        <p>Retired at age: {person.retriedAtAge}</p>
+      )}
     </div>
   );
 }
