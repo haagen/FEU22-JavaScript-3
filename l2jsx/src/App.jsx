@@ -59,6 +59,15 @@ function App() {
  Bootstrap Card med JSX
 
  */
+
+export function CheckRetired(person) {
+  //return <p>Name: {person.firstname + " " + person.lastname}</p>;
+  if (person.retriedAtAge !== undefined) {
+    return <p>Retired at age: {person.retriedAtAge}</p>;
+  }
+  return <p>Have not yet retired</p>;
+}
+
 function App() {
   let person = {
     firstname: "Martin",
@@ -66,6 +75,17 @@ function App() {
     retriedAtAge: 35,
   };
 
+  return (
+    <>
+      <p>
+        Name:
+        {`${person.firstname + " " + person.lastname}`}
+      </p>
+      {CheckRetired(person)}
+    </>
+  );
+
+  /*
   return (
     <div className="container">
       <div className="card" style={{ width: "18rem" }}>
@@ -85,8 +105,14 @@ function App() {
       {person.retriedAtAge !== undefined && (
         <p>Retired at age: {person.retriedAtAge}</p>
       )}
+      {person.retriedAtAge !== undefined ? (
+        <p>Retired at age: {person.retriedAtAge}</p>
+      ) : (
+        <p>Has not retired yet!</p>
+      )}
     </div>
   );
+  */
 }
 
 export default App;
