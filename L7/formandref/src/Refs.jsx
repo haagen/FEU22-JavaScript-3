@@ -21,7 +21,8 @@ class Refs extends React.Component {
   };
 
   onChange(e) {
-    console.log(e.target.value);
+    console.log("onChange", e.target.value);
+    console.log("Name", this.inputName.current.value);
     this.setState({
       email: e.target.value,
     });
