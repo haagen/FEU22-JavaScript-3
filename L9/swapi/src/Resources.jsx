@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectResouceNames,
+  loadResources,
+  selectResource,
+  searchResource,
+} from "./redux/swapiSlice";
 
 function Resources(props) {
-  const [state, setState] = useState([]); // ['planets', 'starships', ...]
+  const resources = useSelector(selectResouceNames);
+  const dispatch = useDispatch();
   const [selection, setSelection] = useState(""); // 'planets'
 
   useEffect(() => {
-    let getResources = () => {
-      fetch("https://swapi.dev/api/")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(Object.keys(data));
-          setState(Object.keys(data));
-        });
-    };
-    getResources();
-  }, []);
+    if (resources.length === 0) {
+      dispatch(loadResources());
+    }
+  });
 
   let formatResource = (str) => {
     let firstCharater = str.charAt(0).toUpperCase();
@@ -25,17 +25,16 @@ function Resources(props) {
 
   let onChange = (e) => {
     setSelection(e.target.value);
-    if (props.onSelect !== undefined) {
-      props.onSelect(e.target.value);
-    }
+    dispatch(selectResource(e.target.value));
+    dispatch(searchResource());
   };
 
   return (
     <div className="resourcesWrapper">
       <select name="resource" value={selection} onChange={onChange}>
         <option value="">Choose</option>
-        {state.length > 0 &&
-          state.map((e, i) => {
+        {resources.length > 0 &&
+          resources.map((e, i) => {
             return (
               <option value={e} key={i}>
                 {formatResource(e)}

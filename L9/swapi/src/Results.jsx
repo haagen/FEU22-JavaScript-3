@@ -1,8 +1,20 @@
 import People from "./People";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectSeletedResouce,
+  selectSearchResults,
+  selectNext,
+  loadMore,
+} from "./redux/swapiSlice";
 
-function Results(props) {
+function Results() {
+  const dispatch = useDispatch();
+  const resource = useSelector(selectSeletedResouce);
+  const data = useSelector(selectSearchResults);
+  const next = useSelector(selectNext);
+
   let renderResult = (e, i) => {
-    switch (props.resource) {
+    switch (resource) {
       case "people":
         return <People key={i} data={e} />;
       default:
@@ -10,14 +22,19 @@ function Results(props) {
     }
   };
 
+  let callLoadMore = () => {
+    dispatch(loadMore());
+  };
+
   return (
     <div className="resultsWrapper">
       <table>
-        {props.data.length > 0 &&
-          props.data.map((e, i) => {
+        {data.length > 0 &&
+          data.map((e, i) => {
             return renderResult(e, i);
           })}
       </table>
+      {next && <button onClick={callLoadMore}>Ladda mer</button>}
     </div>
   );
 }
