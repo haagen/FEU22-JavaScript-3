@@ -4,7 +4,6 @@ import {
   selectResouceNames,
   loadResources,
   selectResource,
-  searchResource,
 } from "./redux/swapiSlice";
 
 function Resources(props) {
@@ -26,7 +25,6 @@ function Resources(props) {
   let onChange = (e) => {
     setSelection(e.target.value);
     dispatch(selectResource(e.target.value));
-    dispatch(searchResource());
   };
 
   return (
